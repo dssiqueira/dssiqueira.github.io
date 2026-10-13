@@ -4,13 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Douglas Siqueira · Construir &gt; Opinar</title>
-<meta name="description" content="Douglas Siqueira, AI Product Leader. Projetos open source, apps e automações de IA, e por onde seguir: doug.ia.br, dsiqueira.com e Agent Chaos.">
+<meta name="description" content="Douglas Siqueira, AI Product Leader. Meus sites, o que eu construo e todos os links: doug.ia.br, dsiqueira.com, Agent Chaos, Doug Drops e projetos open source.">
 <meta name="theme-color" content="#E8ECEF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121A22" media="(prefers-color-scheme: dark)">
 <meta property="og:title" content="Douglas Siqueira · Construir > Opinar">
-<meta property="og:description" content="AI Product Leader. O que eu construo e por onde seguir.">
+<meta property="og:description" content="AI Product Leader. Meus sites, o que eu construo e por onde seguir.">
 <meta property="og:url" content="https://dssiqueira.github.io/">
+<meta property="og:image" content="https://dssiqueira.github.io/assets/shots/doug-ia-br.jpg">
 <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://dssiqueira.github.io/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2316202B'/%3E%3Cpath d='M10 8l12 8-12 8' fill='none' stroke='%23EE6A24' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,6 +54,7 @@
     font: 400 1.0625rem/1.6 var(--body);
     -webkit-font-smoothing: antialiased;
   }
+  img { display: block; max-width: 100%; height: auto; }
   a { color: inherit; }
   :focus-visible { outline: 3px solid var(--felt); outline-offset: 3px; border-radius: 2px; }
   ::selection { background: var(--felt); color: #fff; }
@@ -74,7 +77,7 @@
   .lang button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
 
   /* ---------- hero ---------- */
-  .hero { padding-block: clamp(32px, 7vw, 96px) clamp(56px, 9vw, 128px); }
+  .hero { padding-block: clamp(32px, 7vw, 96px) clamp(56px, 9vw, 120px); }
   .motto {
     margin: 0;
     font-family: var(--display);
@@ -127,39 +130,90 @@
   .section-head {
     display: grid; gap: 8px 48px; align-items: end;
     grid-template-columns: minmax(0, 1fr);
-    margin-bottom: clamp(24px, 4vw, 48px);
+    margin-bottom: clamp(28px, 4vw, 56px);
   }
-  @media (min-width: 860px) { .section-head { grid-template-columns: 5fr 7fr; } .section-head.solo { grid-template-columns: 1fr; } }
+  @media (min-width: 860px) {
+    .section-head { grid-template-columns: 5fr 7fr; }
+    .section-head.solo { grid-template-columns: 1fr; }
+  }
   h2 {
     margin: 0;
     font: 800 clamp(2.5rem, 5.5vw, 4.25rem)/.95 var(--display);
   }
   .section-head p { margin: 0; color: var(--slate); max-width: 52ch; }
 
-  /* ---------- projects: a ledger, not a card grid ---------- */
-  .projects { list-style: none; margin: 0; padding: 0; }
-  .project {
-    display: grid; gap: 6px 48px;
-    grid-template-columns: minmax(0, 1fr);
-    padding-block: 26px;
-    border-bottom: 1px solid var(--rule);
+  /* ---------- browser-window frame for screenshots ---------- */
+  .shot {
+    display: block; text-decoration: none;
+    border: 1.5px solid var(--ink); border-radius: 12px; overflow: hidden;
+    background: var(--sheet);
   }
-  .project:last-child { border-bottom: 0; }
+  .shot .addr {
+    display: flex; align-items: center; gap: 8px;
+    padding: 7px 12px; border-bottom: 1.5px solid var(--ink);
+    font: 500 .8125rem/1.2 var(--body); color: var(--slate);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .shot .addr::before {   /* the felt chevron, as the site's "favicon" */
+    content: ""; flex: none; width: 7px; height: 7px;
+    border-top: 2px solid var(--felt); border-right: 2px solid var(--felt);
+    transform: rotate(45deg); margin-left: -1px;
+  }
+  .shot img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
+
+  /* phone frame for the mobile app */
+  .phone {
+    display: block; width: min(210px, 62%); margin-inline: auto;
+    border: 1.5px solid var(--ink); border-radius: 26px; padding: 7px;
+    background: var(--sheet);
+  }
+  .phone img { border-radius: 19px; aspect-ratio: 390 / 760; object-fit: cover; object-position: top; }
+
+  /* ---------- sites: asymmetric showcase ---------- */
+  .sites { display: grid; gap: 56px 40px; grid-template-columns: minmax(0, 1fr); }
   @media (min-width: 860px) {
-    .project { grid-template-columns: 5fr 7fr; padding-block: 30px; }
+    .sites { grid-template-columns: repeat(12, minmax(0, 1fr)); row-gap: 72px; }
+    .site:nth-child(1) { grid-column: 1 / span 7; }
+    .site:nth-child(2) { grid-column: 8 / span 5; align-self: end; }
+    .site:nth-child(3) { grid-column: 1 / span 5; }
+    .site:nth-child(4) { grid-column: 6 / span 7; }
   }
-  .project h3 {
-    margin: 0;
-    font: 800 clamp(1.875rem, 3.4vw, 2.75rem)/1 var(--display);
+  .site h3 {
+    margin: 18px 0 6px;
+    font: 800 clamp(1.75rem, 3vw, 2.5rem)/1.02 var(--display);
   }
-  .kind { display: block; margin-top: 8px; color: var(--slate); font-size: .9375rem; }
-  .project p { margin: 0 0 12px; max-width: 58ch; }
-  .links { display: flex; flex-wrap: wrap; gap: 6px 22px; }
+  .site h3 a { text-decoration: none; }
+  .site h3 a:hover { color: var(--felt-ink); }
+  .site .domain { display: block; margin-top: 4px; font: 500 1rem/1.3 var(--body); color: var(--slate); }
+  .site p { margin: 8px 0 12px; max-width: 56ch; }
+
+  .links { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 0; padding: 0; list-style: none; }
   .links a {
     font-weight: 600; text-decoration: underline; text-decoration-color: var(--rule);
     text-decoration-thickness: 2px; text-underline-offset: 4px;
   }
   .links a:hover { text-decoration-color: var(--felt); }
+
+  /* ---------- projects: a ledger with a picture ---------- */
+  .projects { list-style: none; margin: 0; padding: 0; }
+  .project {
+    display: grid; gap: 14px 40px;
+    grid-template-columns: minmax(0, 1fr);
+    padding-block: 28px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .project:last-child { border-bottom: 0; }
+  @media (min-width: 860px) {
+    .project { grid-template-columns: 4fr 5fr 3fr; align-items: start; padding-block: 34px; }
+  }
+  .project h3 {
+    margin: 0;
+    font: 800 clamp(1.875rem, 3.2vw, 2.625rem)/1 var(--display);
+  }
+  .kind { display: block; margin-top: 8px; color: var(--slate); font-size: .9375rem; }
+  .project p { margin: 0 0 12px; max-width: 58ch; }
+  .project .media { max-width: 420px; }
+  @media (max-width: 859px) { .project .media { order: -1; } }
   .install {
     display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
     margin: 0 0 14px;
@@ -176,21 +230,19 @@
   }
   .copy[data-done] { background: var(--ink); color: var(--paper); }
 
-  /* ---------- routes: intent -> destination ---------- */
-  .routes { list-style: none; margin: 0; padding: 0; }
-  .route a {
-    display: grid; gap: 4px 32px; align-items: baseline;
-    grid-template-columns: minmax(0, 1fr);
-    padding-block: 22px;
-    border-bottom: 1px solid var(--rule);
+  /* ---------- all the links ---------- */
+  .directory { display: grid; gap: 36px 40px; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 640px) { .directory { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1000px) { .directory { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .directory h3 { margin: 0 0 10px; font: 800 1.75rem/1 var(--display); }
+  .directory h3 a { text-decoration: none; }
+  .directory h3 a:hover { color: var(--felt-ink); }
+  .directory ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+  .directory li a {
+    display: block; padding: 9px 0; border-bottom: 1px solid var(--rule);
     text-decoration: none;
   }
-  .route:last-child a { border-bottom: 0; }
-  @media (min-width: 860px) { .route a { grid-template-columns: 7fr 5fr; padding-block: 26px; } }
-  .route .want { font: 600 clamp(1.625rem, 3vw, 2.375rem)/1.05 var(--display); }
-  .route .where { color: var(--slate); }
-  .route .where b { color: var(--ink); font-weight: 600; }
-  .route a:hover .want, .route a:focus-visible .want { color: var(--felt-ink); }
+  .directory li a:hover { color: var(--felt-ink); }
 
   /* ---------- path ---------- */
   .path p { margin: 0 0 1em; max-width: var(--measure); font-size: 1.125rem; }
@@ -232,6 +284,70 @@
       </div>
     </div>
 
+    <!-- ============ SITES ============ -->
+    <section aria-labelledby="h-sites">
+      <div class="section-head">
+        <h2 id="h-sites" data-i18n="sites_title">Onde eu estou</h2>
+        <p data-i18n="sites_lead">Cada coisa que eu faço mora num lugar. Escolha pelo que você quer.</p>
+      </div>
+
+      <div class="sites">
+        <article class="site">
+          <a class="shot" href="https://doug.ia.br" tabindex="-1" aria-hidden="true">
+            <span class="addr">doug.ia.br</span>
+            <img src="assets/shots/doug-ia-br.jpg" width="1440" height="900" loading="lazy" decoding="async" alt="">
+          </a>
+          <h3><a href="https://doug.ia.br" data-i18n="s1_want">Quero aprender IA na prática</a><span class="domain">doug.ia.br</span></h3>
+          <p data-i18n="s1_desc">Meu lab aberto: experimentos com tempo economizado e ROI medidos, trilhas de estudo, handbooks e o Bit a Bit. IA sem blá blá blá.</p>
+          <ul class="links">
+            <li><a href="https://doug.ia.br/lab" data-i18n="s1_l1">Experimentos</a></li>
+            <li><a href="https://doug.ia.br/trilhas" data-i18n="s1_l2">Trilhas</a></li>
+            <li><a href="https://doug.ia.br/handbooks">Handbooks</a></li>
+            <li><a href="https://doug.ia.br/manifesto" data-i18n="s1_l4">Manifesto</a></li>
+          </ul>
+        </article>
+
+        <article class="site">
+          <a class="shot" href="https://dsiqueira.com" tabindex="-1" aria-hidden="true">
+            <span class="addr">dsiqueira.com</span>
+            <img src="assets/shots/dsiqueira-com.jpg" width="1440" height="900" loading="lazy" decoding="async" alt="">
+          </a>
+          <h3><a href="https://dsiqueira.com" data-i18n="s2_want">Quero IA rodando na minha empresa</a><span class="domain">dsiqueira.com</span></h3>
+          <p data-i18n="s2_desc">Consultoria de IA aplicada e produto: diagnóstico de oportunidades, automações, workshops e advisory. Escopo fechado, sem cobrar por hora.</p>
+          <ul class="links">
+            <li><a href="https://dsiqueira.com" data-i18n="s2_l1">Ver como funciona</a></li>
+            <li><a href="mailto:contato@dsiqueira.com">contato@dsiqueira.com</a></li>
+          </ul>
+        </article>
+
+        <article class="site">
+          <a class="shot" href="https://agentchaos.org" tabindex="-1" aria-hidden="true">
+            <span class="addr">agentchaos.org</span>
+            <img src="assets/shots/agentchaos.jpg" width="1440" height="900" loading="lazy" decoding="async" alt="">
+          </a>
+          <h3><a href="https://agentchaos.org" data-i18n="s3_want">Quero pensar governança de agentes</a><span class="domain">agentchaos.org</span></h3>
+          <p data-i18n="s3_desc">Governança econômica de agentes de IA, para CEOs e conselhos: perguntas para o board, calculadora de custo e briefs. Em inglês.</p>
+          <ul class="links">
+            <li><a href="https://agentchaos.org" data-i18n="s3_l1">Ler o Agent Chaos</a></li>
+          </ul>
+        </article>
+
+        <article class="site">
+          <a class="shot" href="https://doug.ia.br/dougdrops" tabindex="-1" aria-hidden="true">
+            <span class="addr">doug.ia.br/dougdrops</span>
+            <img src="assets/shots/dougdrops.jpg" width="1440" height="900" loading="lazy" decoding="async" alt="">
+          </a>
+          <h3><a href="https://doug.ia.br/dougdrops" data-i18n="s4_want">Quero receber o que eu testo, toda semana</a><span class="domain">Doug Drops</span></h3>
+          <p data-i18n="s4_desc">A newsletter: toda segunda-feira, experimentos, bastidores e aprendizados de IA aplicada a produto, direto na sua caixa de entrada.</p>
+          <ul class="links">
+            <li><a href="https://doug.ia.br/dougdrops" data-i18n="s4_l1">Assinar</a></li>
+            <li><a href="https://dougdrops.substack.com/" data-i18n="s4_l2">Edições no Substack</a></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
     <section aria-labelledby="h-build">
       <div class="section-head">
         <h2 id="h-build" data-i18n="build_title">O que eu construo</h2>
@@ -247,97 +363,125 @@
               <code id="cmd-vibedoc">npx skills add dssiqueira/skill-vibe-doc</code>
               <button class="copy" type="button" data-copy="cmd-vibedoc" data-i18n="copy">Copiar</button>
             </div>
-            <div class="links">
-              <a href="https://github.com/dssiqueira/skill-vibe-doc" data-i18n="l_code">Código no GitHub</a>
-              <a href="https://doug.ia.br/vibedoc" data-i18n="l_how">Como funciona</a>
-            </div>
+            <ul class="links">
+              <li><a href="https://github.com/dssiqueira/skill-vibe-doc" data-i18n="l_code">Código no GitHub</a></li>
+              <li><a href="https://doug.ia.br/vibedoc" data-i18n="l_how">Como funciona</a></li>
+            </ul>
           </div>
+          <a class="media shot" href="https://doug.ia.br/vibedoc" tabindex="-1" aria-hidden="true">
+            <span class="addr">doug.ia.br/vibedoc</span>
+            <img src="assets/shots/vibedoc.jpg" width="1440" height="900" loading="lazy" decoding="async" alt="">
+          </a>
         </li>
 
         <li class="project">
-          <div><h3>Bit a Bit</h3><span class="kind" data-i18n="k_app">App gratuito</span></div>
+          <div><h3>Bit a Bit</h3><span class="kind" data-i18n="k_app">App gratuito, no celular</span></div>
           <div>
-            <p data-i18n="d_bitabit">Aprenda IA em lições de 3 minutos, no celular, com ranking semanal e certificado no final. Em português.</p>
-            <div class="links">
-              <a href="https://bitabit.doug.ia.br/?utm_source=dssiqueira.github.io" data-i18n="l_open_app">Abrir o app</a>
-            </div>
+            <p data-i18n="d_bitabit">Aprenda IA em lições de 3 minutos, do básico ao avançado, com ranking semanal e certificado no final. Sem jargão e sem enrolação, em português.</p>
+            <ul class="links">
+              <li><a href="https://bitabit.doug.ia.br/?utm_source=dssiqueira.github.io" data-i18n="l_open_app">Abrir o app</a></li>
+            </ul>
           </div>
+          <a class="media phone" href="https://bitabit.doug.ia.br/?utm_source=dssiqueira.github.io" tabindex="-1" aria-hidden="true">
+            <img src="assets/shots/bitabit-mobile.jpg" width="780" height="1688" loading="lazy" decoding="async" alt="">
+          </a>
         </li>
 
         <li class="project">
           <div><h3>Google Play Reviews Scraper</h3><span class="kind" data-i18n="k_scraper">App de desktop e CLI em Python</span></div>
           <div>
             <p data-i18n="d_scraper">Coleta reviews da Play Store em CSV, JSON ou Excel. Fila com vários apps, filtro por data, resumo de notas, modo escuro e seis idiomas, no Windows, macOS e Linux.</p>
-            <div class="links">
-              <a href="https://github.com/dssiqueira/google-play-reviews-scraper" data-i18n="l_code">Código no GitHub</a>
-            </div>
+            <ul class="links">
+              <li><a href="https://github.com/dssiqueira/google-play-reviews-scraper" data-i18n="l_code">Código no GitHub</a></li>
+            </ul>
           </div>
+          <a class="media shot" href="https://github.com/dssiqueira/google-play-reviews-scraper" tabindex="-1" aria-hidden="true">
+            <span class="addr">Google Play Reviews Scraper</span>
+            <img src="assets/shots/google-play-reviews-scraper.png" width="1000" height="740" loading="lazy" decoding="async" alt="">
+          </a>
         </li>
 
         <li class="project">
-          <div><h3>CNPJ Hub</h3><span class="kind" data-i18n="k_n8n">Node para n8n</span></div>
+          <div><h3>CNPJ Hub</h3><span class="kind" data-i18n="k_n8n">Node para n8n, open source</span></div>
           <div>
-            <p data-i18n="d_cnpj">Dados de empresas brasileiras direto nos seus fluxos do n8n. No Lab, economiza 70 horas de trabalho por mês.</p>
-            <div class="links">
-              <a href="https://doug.ia.br/experimento/cnpj-hub" data-i18n="l_experiment">Ver o experimento</a>
-            </div>
+            <p data-i18n="d_cnpj">Consulta dados de empresas brasileiras pelo CNPJ direto nos seus fluxos do n8n, usando 6 APIs públicas com troca automática quando uma falha. No Lab, economiza 70 horas por mês.</p>
+            <ul class="links">
+              <li><a href="https://doug.ia.br/experimento/cnpj-hub" data-i18n="l_experiment">Ver o experimento</a></li>
+            </ul>
           </div>
+          <a class="media shot" href="https://doug.ia.br/experimento/cnpj-hub" tabindex="-1" aria-hidden="true">
+            <span class="addr">doug.ia.br/experimento/cnpj-hub</span>
+            <img src="assets/shots/cnpj-hub.jpg" width="1440" height="900" loading="lazy" decoding="async" alt="">
+          </a>
         </li>
 
         <li class="project">
           <div><h3>CyberKey Generator</h3><span class="kind" data-i18n="k_web">Página web</span></div>
           <div>
             <p data-i18n="d_cyberkey">Senhas, chaves de Wi-Fi (WEP) e chaves de 256 bits geradas no seu navegador com aleatoriedade criptográfica. Nada sai do seu dispositivo.</p>
-            <div class="links">
-              <a href="https://dssiqueira.github.io/random-keygen-generator/" data-i18n="l_open">Abrir</a>
-              <a href="https://github.com/dssiqueira/random-keygen-generator" data-i18n="l_code">Código no GitHub</a>
-            </div>
+            <ul class="links">
+              <li><a href="https://dssiqueira.github.io/random-keygen-generator/" data-i18n="l_open">Abrir</a></li>
+              <li><a href="https://github.com/dssiqueira/random-keygen-generator" data-i18n="l_code">Código no GitHub</a></li>
+            </ul>
           </div>
-        </li>
-
-        <li class="project">
-          <div><h3>Agent Chaos</h3><span class="kind" data-i18n="k_essays">Ensaios, em inglês</span></div>
-          <div>
-            <p data-i18n="d_chaos">Governança econômica de agentes de IA para CEOs e conselhos: o que acontece quando agentes se multiplicam sem dono, sem visibilidade de custo e sem plano de aposentadoria.</p>
-            <div class="links">
-              <a href="https://agentchaos.org" data-i18n="l_read">Ler em agentchaos.org</a>
-            </div>
-          </div>
+          <a class="media shot" href="https://dssiqueira.github.io/random-keygen-generator/" tabindex="-1" aria-hidden="true">
+            <span class="addr">dssiqueira.github.io/random-keygen-generator</span>
+            <img src="assets/shots/cyberkey.jpg" width="1440" height="900" loading="lazy" decoding="async" alt="">
+          </a>
         </li>
       </ul>
     </section>
 
-    <section aria-labelledby="h-next">
+    <!-- ============ ALL LINKS ============ -->
+    <section aria-labelledby="h-more">
       <div class="section-head">
-        <h2 id="h-next" data-i18n="next_title">Por onde seguir</h2>
-        <p data-i18n="next_lead">Cada coisa que eu faço mora num lugar. Escolha pelo que você quer.</p>
+        <h2 id="h-more" data-i18n="more_title">Tudo no doug.ia.br</h2>
+        <p data-i18n="more_lead">O mapa do site, do jeito que está no menu de lá. Conteúdo em português.</p>
       </div>
-      <ul class="routes">
-        <li class="route"><a href="https://doug.ia.br">
-          <span class="want" data-i18n="r1_want">Quero aprender IA na prática</span>
-          <span class="where" data-i18n-html="r1_where"><b>doug.ia.br</b>: trilhas, handbooks, o Lab e o Bit a Bit</span>
-        </a></li>
-        <li class="route"><a href="https://dsiqueira.com">
-          <span class="want" data-i18n="r2_want">Quero IA rodando na minha empresa</span>
-          <span class="where" data-i18n-html="r2_where"><b>dsiqueira.com</b>: diagnóstico, automação, workshops e advisory</span>
-        </a></li>
-        <li class="route"><a href="https://doug.ia.br/dougdrops">
-          <span class="want" data-i18n="r3_want">Quero receber o que eu testo, toda semana</span>
-          <span class="where" data-i18n-html="r3_where"><b>Doug Drops</b>: a newsletter</span>
-        </a></li>
-        <li class="route"><a href="https://agentchaos.org">
-          <span class="want" data-i18n="r4_want">Quero pensar governança de agentes</span>
-          <span class="where" data-i18n-html="r4_where"><b>agentchaos.org</b>: ensaios e perguntas para conselhos</span>
-        </a></li>
-      </ul>
+      <div class="directory">
+        <div>
+          <h3><a href="https://doug.ia.br/lab">Lab</a></h3>
+          <ul>
+            <li><a href="https://doug.ia.br/lab">Experimentos</a></li>
+            <li><a href="https://doug.ia.br/painel">Painel do Lab</a></li>
+            <li><a href="https://doug.ia.br/cemiterio-ia">Cemitério de IA</a></li>
+            <li><a href="https://doug.ia.br/badges">Badges</a></li>
+            <li><a href="https://doug.ia.br/manifesto">Manifesto</a></li>
+            <li><a href="https://doug.ia.br/crie-seu-lab">Crie seu LAB</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3><a href="https://doug.ia.br/livro" data-i18n="dir_method">Método</a></h3>
+          <ul>
+            <li><a href="https://doug.ia.br/livro">O livro</a></li>
+            <li><a href="https://doug.ia.br/kit-de-campo">Kit de Campo</a></li>
+            <li><a href="https://doug.ia.br/kit-roi">Kit ROI</a></li>
+            <li><a href="https://doug.ia.br/primeiros-90-dias">Primeiros 90 dias</a></li>
+            <li><a href="https://doug.ia.br/ia-e-pessoas">IA e pessoas</a></li>
+            <li><a href="https://doug.ia.br/glossario">Glossário</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3><a href="https://doug.ia.br/trilhas" data-i18n="dir_resources">Recursos</a></h3>
+          <ul>
+            <li><a href="https://doug.ia.br/trilhas">Trilhas</a></li>
+            <li><a href="https://doug.ia.br/handbooks">Handbooks</a></li>
+            <li><a href="https://doug.ia.br/ferramentas">Ferramentas</a></li>
+            <li><a href="https://doug.ia.br/prompts">Prompts</a></li>
+            <li><a href="https://doug.ia.br/economia-de-tokens">Economia de Tokens</a></li>
+            <li><a href="https://doug.ia.br/faq">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
     </section>
 
+    <!-- ============ PATH ============ -->
     <section class="path" aria-labelledby="h-path">
       <div class="section-head solo">
         <h2 id="h-path" data-i18n="path_title">De onde eu venho</h2>
       </div>
       <p data-i18n="path_1">Antes do Lab, construí produto no Mercado Livre, no iFood, na Frete.com, na Floki e na Johnson &amp; Johnson.</p>
-      <p data-i18n="path_2">Dei aula na Coderhouse e na TheStarter, e sou mentor no ADPList. Gosto de ensinar do jeito que eu aprendo: construindo.</p>
+      <p data-i18n-html="path_2">Dei aula na Coderhouse e na TheStarter, e sou mentor no ADPList. Gosto de ensinar do jeito que eu aprendo: construindo. Mais sobre mim em <a href="https://doug.ia.br/sobre">doug.ia.br/sobre</a>.</p>
     </section>
   </main>
 
@@ -346,9 +490,11 @@
       <li><a href="https://www.linkedin.com/in/douglas-siqueira/">LinkedIn</a></li>
       <li><a href="https://www.youtube.com/@doug-ia">YouTube</a></li>
       <li><a href="https://www.instagram.com/doug.ia.br">Instagram</a></li>
+      <li><a href="https://www.tiktok.com/@doug.ia.br">TikTok</a></li>
       <li><a href="https://x.com/doug_ia">X</a></li>
       <li><a href="https://github.com/doug-ia-br">GitHub</a></li>
       <li><a href="https://dougdrops.substack.com/">Substack</a></li>
+      <li><a href="mailto:contato@dsiqueira.com">E-mail</a></li>
     </ul>
     <span>© <span id="year">2026</span> Douglas Siqueira</span>
   </footer>
@@ -361,39 +507,43 @@ const EN = {
   opine: "Opine",
   intro: "I'm an <strong>AI Product Leader</strong> with 15 years in digital product. I run an in-house AI lab at a company of 500+ people, and I believe good AI is the kind that runs in operations, not on a slide.",
   figures: "The <a href=\"https://doug.ia.br/lab\">Lab</a> today: 8 AI and automation solutions live, 1,337 hours a month given back to teams, under R$&nbsp;100 a month in AI costs.",
+  sites_title: "Where I am",
+  sites_lead: "Everything I do lives somewhere. Pick by what you want. Most of it is in Portuguese.",
+  s1_want: "I want to learn AI hands-on",
+  s1_desc: "My open lab: experiments with measured time savings and ROI, learning tracks, handbooks and Bit a Bit. AI without the hype.",
+  s1_l1: "Experiments", s1_l2: "Learning tracks", s1_l4: "Manifesto",
+  s2_want: "I want AI running in my company",
+  s2_desc: "Applied AI and product consulting: opportunity diagnostics, automation, workshops and advisory. Fixed scope, no hourly billing.",
+  s2_l1: "See how it works",
+  s3_want: "I want to think about agent governance",
+  s3_desc: "Economic governance of AI agents for CEOs and boards: board questions, a cost calculator and briefs.",
+  s3_l1: "Read Agent Chaos",
+  s4_want: "I want what I test, every week",
+  s4_desc: "The newsletter: every Monday, experiments, behind-the-scenes and lessons from AI applied to product, straight to your inbox.",
+  s4_l1: "Subscribe", s4_l2: "Issues on Substack",
   build_title: "What I build",
   build_lead: "Tools that started from a real problem, usually my own. Some are open source, others are apps you can use right now.",
   k_skill: "Skill for coding agents",
   d_vibedoc: "A short interview that writes and maintains an AGENTS.md, a DESIGN.md and a docs/ folder your AI reads before it builds. Works in Claude Code, Codex, Cursor and others.",
   copy: "Copy", copied: "Copied",
   l_code: "Code on GitHub", l_how: "How it works",
-  k_app: "Free app",
-  d_bitabit: "Learn AI in 3-minute lessons on your phone, with a weekly ranking and a certificate at the end. In Portuguese.",
+  k_app: "Free mobile app",
+  d_bitabit: "Learn AI in 3-minute lessons, from basics to advanced, with a weekly ranking and a certificate at the end. No jargon, no fluff. In Portuguese.",
   l_open_app: "Open the app",
   k_scraper: "Python desktop app and CLI",
   d_scraper: "Collects Play Store reviews into CSV, JSON or Excel. Multi-app queue, date filter, rating summary, dark mode and six languages, on Windows, macOS and Linux.",
-  k_n8n: "n8n node",
-  d_cnpj: "Brazilian company data straight into your n8n workflows. In the Lab, it saves 70 hours of work a month.",
+  k_n8n: "Open source n8n node",
+  d_cnpj: "Looks up Brazilian company data by CNPJ right inside your n8n workflows, across 6 public APIs with automatic fallback. In the Lab, it saves 70 hours a month.",
   l_experiment: "See the experiment",
   k_web: "Web page",
   d_cyberkey: "Passwords, Wi-Fi (WEP) keys and 256-bit keys generated in your browser with cryptographic randomness. Nothing leaves your device.",
   l_open: "Open",
-  k_essays: "Essays",
-  d_chaos: "Economic governance of AI agents for CEOs and boards: what happens when agents multiply with no owner, no cost visibility and no retirement plan.",
-  l_read: "Read on agentchaos.org",
-  next_title: "Where to go next",
-  next_lead: "Everything I do lives somewhere. Pick by what you want. Most of it is in Portuguese.",
-  r1_want: "I want to learn AI hands-on",
-  r1_where: "<b>doug.ia.br</b>: learning tracks, handbooks, the Lab and Bit a Bit",
-  r2_want: "I want AI running in my company",
-  r2_where: "<b>dsiqueira.com</b>: diagnostics, automation, workshops and advisory",
-  r3_want: "I want what I test, every week",
-  r3_where: "<b>Doug Drops</b>: the newsletter",
-  r4_want: "I want to think about agent governance",
-  r4_where: "<b>agentchaos.org</b>: essays and questions for boards",
+  more_title: "All of doug.ia.br",
+  more_lead: "The site map, organized like the menu over there. Content in Portuguese.",
+  dir_method: "Method", dir_resources: "Resources",
   path_title: "Where I come from",
   path_1: "Before the Lab, I built product at Mercado Livre, iFood, Frete.com, Floki and Johnson & Johnson.",
-  path_2: "I've taught at Coderhouse and TheStarter, and I mentor on ADPList. I like teaching the way I learn: by building.",
+  path_2: "I've taught at Coderhouse and TheStarter, and I mentor on ADPList. I like teaching the way I learn: by building. More about me at <a href=\"https://doug.ia.br/sobre\">doug.ia.br/sobre</a>.",
 };
 
 // Portuguese is the markup; capture it once so we can switch back.
