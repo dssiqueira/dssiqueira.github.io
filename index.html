@@ -1,1 +1,445 @@
-Hello World
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Douglas Siqueira · Construir &gt; Opinar</title>
+<meta name="description" content="Douglas Siqueira, AI Product Leader. Projetos open source, apps e automações de IA, e por onde seguir: doug.ia.br, dsiqueira.com e Agent Chaos.">
+<meta name="theme-color" content="#E8ECEF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121A22" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="Douglas Siqueira · Construir > Opinar">
+<meta property="og:description" content="AI Product Leader. O que eu construo e por onde seguir.">
+<meta property="og:url" content="https://dssiqueira.github.io/">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://dssiqueira.github.io/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2316202B'/%3E%3Cpath d='M10 8l12 8-12 8' fill='none' stroke='%23EE6A24' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #E8ECEF;      /* graphite paper */
+    --sheet: #F4F6F8;      /* raised surface */
+    --ink: #16202B;        /* blue-black ink */
+    --slate: #56636F;      /* secondary text */
+    --rule: #C3CBD3;       /* lines */
+    --felt: #EE6A24;       /* the puppet's orange felt */
+    --felt-ink: #B5470E;   /* felt, dark enough for text on paper */
+    --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+    --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+    --gutter: clamp(20px, 6vw, 96px);
+    --measure: 64ch;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #121A22;
+      --sheet: #18222C;
+      --ink: #E4E9ED;
+      --slate: #96A3AE;
+      --rule: #2C3946;
+      --felt: #FF7A33;
+      --felt-ink: #FF8C4D;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 400 1.0625rem/1.6 var(--body);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--felt); outline-offset: 3px; border-radius: 2px; }
+  ::selection { background: var(--felt); color: #fff; }
+
+  .wrap { padding-inline: var(--gutter); max-width: 1320px; margin-inline: auto; }
+
+  /* ---------- top bar ---------- */
+  .bar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-block: 28px;
+  }
+  .who { font: 600 1.25rem/1 var(--display); letter-spacing: .02em; text-decoration: none; }
+  .lang {
+    display: inline-flex; border: 1.5px solid var(--ink); border-radius: 999px; overflow: hidden;
+  }
+  .lang button {
+    font: 500 .875rem/1 var(--body); color: var(--ink); background: transparent;
+    border: 0; padding: 8px 14px; cursor: pointer;
+  }
+  .lang button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+  /* ---------- hero ---------- */
+  .hero { padding-block: clamp(32px, 7vw, 96px) clamp(56px, 9vw, 128px); }
+  .motto {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(4rem, 17vw, 13rem);
+    line-height: .84;
+    letter-spacing: -.01em;
+    padding-bottom: .1em;
+  }
+  .motto > span { display: block; }
+  /* The ">" hangs in an indent to the left of the words, like hanging
+     punctuation; its left edge lines up with the paragraph below. */
+  @media (min-width: 641px) { .motto { padding-left: .68em; } }
+  .motto .lower { position: relative; }
+  .chevron {
+    position: absolute;
+    right: 100%;
+    top: .06em;
+    width: .62em; height: .74em;
+    margin-right: .06em;
+    overflow: visible;
+  }
+  .chevron path {
+    fill: none; stroke: var(--felt); stroke-width: 15;
+    stroke-linecap: round; stroke-linejoin: round;
+    stroke-dasharray: 110; stroke-dashoffset: 0;
+  }
+  .js .chevron path { animation: draw .9s .25s cubic-bezier(.65,0,.35,1) both; }
+  @keyframes draw { from { stroke-dashoffset: 110; } }
+  @media (prefers-reduced-motion: reduce) { .js .chevron path { animation: none; } }
+  /* small screens: no room for the indent, so the chevron sits inline */
+  @media (max-width: 640px) {
+    .motto { font-size: 21vw; }
+    .chevron { position: static; display: inline-block; vertical-align: -.04em; margin: 0 .1em 0 0; }
+  }
+
+  .intro {
+    max-width: var(--measure);
+    margin-top: clamp(28px, 4vw, 48px);
+    font-size: clamp(1.125rem, 1.6vw, 1.3125rem);
+    line-height: 1.55;
+  }
+  .intro p { margin: 0 0 .9em; }
+  .intro strong { font-weight: 600; }
+  .lab-figures { color: var(--slate); }
+  .lab-figures a { color: var(--ink); text-decoration-color: var(--felt); text-underline-offset: 3px; text-decoration-thickness: 2px; }
+
+  /* ---------- sections ---------- */
+  section { padding-block: clamp(48px, 7vw, 96px); border-top: 2px solid var(--ink); }
+  .section-head {
+    display: grid; gap: 8px 48px; align-items: end;
+    grid-template-columns: minmax(0, 1fr);
+    margin-bottom: clamp(24px, 4vw, 48px);
+  }
+  @media (min-width: 860px) { .section-head { grid-template-columns: 5fr 7fr; } .section-head.solo { grid-template-columns: 1fr; } }
+  h2 {
+    margin: 0;
+    font: 800 clamp(2.5rem, 5.5vw, 4.25rem)/.95 var(--display);
+  }
+  .section-head p { margin: 0; color: var(--slate); max-width: 52ch; }
+
+  /* ---------- projects: a ledger, not a card grid ---------- */
+  .projects { list-style: none; margin: 0; padding: 0; }
+  .project {
+    display: grid; gap: 6px 48px;
+    grid-template-columns: minmax(0, 1fr);
+    padding-block: 26px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .project:last-child { border-bottom: 0; }
+  @media (min-width: 860px) {
+    .project { grid-template-columns: 5fr 7fr; padding-block: 30px; }
+  }
+  .project h3 {
+    margin: 0;
+    font: 800 clamp(1.875rem, 3.4vw, 2.75rem)/1 var(--display);
+  }
+  .kind { display: block; margin-top: 8px; color: var(--slate); font-size: .9375rem; }
+  .project p { margin: 0 0 12px; max-width: 58ch; }
+  .links { display: flex; flex-wrap: wrap; gap: 6px 22px; }
+  .links a {
+    font-weight: 600; text-decoration: underline; text-decoration-color: var(--rule);
+    text-decoration-thickness: 2px; text-underline-offset: 4px;
+  }
+  .links a:hover { text-decoration-color: var(--felt); }
+  .install {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    margin: 0 0 14px;
+  }
+  .install code {
+    font: 400 .9rem/1.4 var(--mono);
+    background: var(--sheet); border: 1px solid var(--rule); border-radius: 6px;
+    padding: 7px 10px; max-width: 100%; overflow-wrap: anywhere;
+  }
+  .copy {
+    font: 500 .875rem/1 var(--body); color: var(--ink);
+    background: transparent; border: 1.5px solid var(--ink); border-radius: 6px;
+    padding: 7px 12px; cursor: pointer;
+  }
+  .copy[data-done] { background: var(--ink); color: var(--paper); }
+
+  /* ---------- routes: intent -> destination ---------- */
+  .routes { list-style: none; margin: 0; padding: 0; }
+  .route a {
+    display: grid; gap: 4px 32px; align-items: baseline;
+    grid-template-columns: minmax(0, 1fr);
+    padding-block: 22px;
+    border-bottom: 1px solid var(--rule);
+    text-decoration: none;
+  }
+  .route:last-child a { border-bottom: 0; }
+  @media (min-width: 860px) { .route a { grid-template-columns: 7fr 5fr; padding-block: 26px; } }
+  .route .want { font: 600 clamp(1.625rem, 3vw, 2.375rem)/1.05 var(--display); }
+  .route .where { color: var(--slate); }
+  .route .where b { color: var(--ink); font-weight: 600; }
+  .route a:hover .want, .route a:focus-visible .want { color: var(--felt-ink); }
+
+  /* ---------- path ---------- */
+  .path p { margin: 0 0 1em; max-width: var(--measure); font-size: 1.125rem; }
+
+  /* ---------- footer ---------- */
+  footer {
+    border-top: 2px solid var(--ink);
+    padding-block: 32px 48px;
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 32px;
+    color: var(--slate); font-size: .9375rem;
+  }
+  .social { display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 0; padding: 0; list-style: none; }
+  .social a { color: var(--ink); text-underline-offset: 3px; }
+  .social a:hover { text-decoration-color: var(--felt); }
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js')</script>
+
+<div class="wrap">
+  <header class="bar">
+    <a class="who" href="./">Douglas Siqueira</a>
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button type="button" data-set-lang="pt" aria-pressed="true">PT</button>
+      <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero">
+      <h1 class="motto" data-i18n-aria="motto_aria" aria-label="Construir é mais que opinar">
+        <span aria-hidden="true" data-i18n="build">Construir</span>
+        <span class="lower" aria-hidden="true"><svg class="chevron" viewBox="0 0 62 74" aria-hidden="true"><path d="M8 8 L54 37 L8 66"/></svg><span data-i18n="opine">Opinar</span></span>
+      </h1>
+
+      <div class="intro">
+        <p data-i18n-html="intro">Sou <strong>AI Product Leader</strong>, com 15 anos em produto digital. Lidero um laboratório interno de IA numa empresa com mais de 500 pessoas, e acredito que IA boa é a que roda na operação, não a do slide.</p>
+        <p class="lab-figures" data-i18n-html="figures">Os números do <a href="https://doug.ia.br/lab">Lab</a> hoje: 8 soluções de IA e automação no ar, 1.337 horas devolvidas aos times por mês, menos de R$&nbsp;100 por mês de custo com IA.</p>
+      </div>
+    </div>
+
+    <section aria-labelledby="h-build">
+      <div class="section-head">
+        <h2 id="h-build" data-i18n="build_title">O que eu construo</h2>
+        <p data-i18n="build_lead">Ferramentas que nasceram de um problema real, quase sempre meu. Algumas são código aberto, outras são apps que você pode usar agora.</p>
+      </div>
+
+      <ul class="projects">
+        <li class="project">
+          <div><h3>Vibe Doc</h3><span class="kind" data-i18n="k_skill">Skill para agentes de código</span></div>
+          <div>
+            <p data-i18n="d_vibedoc">Uma entrevista rápida que gera e mantém um AGENTS.md, um DESIGN.md e uma pasta docs/ que a IA lê antes de construir. Funciona no Claude Code, Codex, Cursor e outros.</p>
+            <div class="install">
+              <code id="cmd-vibedoc">npx skills add dssiqueira/skill-vibe-doc</code>
+              <button class="copy" type="button" data-copy="cmd-vibedoc" data-i18n="copy">Copiar</button>
+            </div>
+            <div class="links">
+              <a href="https://github.com/dssiqueira/skill-vibe-doc" data-i18n="l_code">Código no GitHub</a>
+              <a href="https://doug.ia.br/vibedoc" data-i18n="l_how">Como funciona</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="project">
+          <div><h3>Bit a Bit</h3><span class="kind" data-i18n="k_app">App gratuito</span></div>
+          <div>
+            <p data-i18n="d_bitabit">Aprenda IA em lições de 3 minutos, no celular, com ranking semanal e certificado no final. Em português.</p>
+            <div class="links">
+              <a href="https://bitabit.doug.ia.br/?utm_source=dssiqueira.github.io" data-i18n="l_open_app">Abrir o app</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="project">
+          <div><h3>Google Play Reviews Scraper</h3><span class="kind" data-i18n="k_scraper">App de desktop e CLI em Python</span></div>
+          <div>
+            <p data-i18n="d_scraper">Coleta reviews da Play Store em CSV, JSON ou Excel. Fila com vários apps, filtro por data, resumo de notas, modo escuro e seis idiomas, no Windows, macOS e Linux.</p>
+            <div class="links">
+              <a href="https://github.com/dssiqueira/google-play-reviews-scraper" data-i18n="l_code">Código no GitHub</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="project">
+          <div><h3>CNPJ Hub</h3><span class="kind" data-i18n="k_n8n">Node para n8n</span></div>
+          <div>
+            <p data-i18n="d_cnpj">Dados de empresas brasileiras direto nos seus fluxos do n8n. No Lab, economiza 70 horas de trabalho por mês.</p>
+            <div class="links">
+              <a href="https://doug.ia.br/experimento/cnpj-hub" data-i18n="l_experiment">Ver o experimento</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="project">
+          <div><h3>CyberKey Generator</h3><span class="kind" data-i18n="k_web">Página web</span></div>
+          <div>
+            <p data-i18n="d_cyberkey">Senhas, chaves de Wi-Fi (WEP) e chaves de 256 bits geradas no seu navegador com aleatoriedade criptográfica. Nada sai do seu dispositivo.</p>
+            <div class="links">
+              <a href="https://dssiqueira.github.io/random-keygen-generator/" data-i18n="l_open">Abrir</a>
+              <a href="https://github.com/dssiqueira/random-keygen-generator" data-i18n="l_code">Código no GitHub</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="project">
+          <div><h3>Agent Chaos</h3><span class="kind" data-i18n="k_essays">Ensaios, em inglês</span></div>
+          <div>
+            <p data-i18n="d_chaos">Governança econômica de agentes de IA para CEOs e conselhos: o que acontece quando agentes se multiplicam sem dono, sem visibilidade de custo e sem plano de aposentadoria.</p>
+            <div class="links">
+              <a href="https://agentchaos.org" data-i18n="l_read">Ler em agentchaos.org</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="h-next">
+      <div class="section-head">
+        <h2 id="h-next" data-i18n="next_title">Por onde seguir</h2>
+        <p data-i18n="next_lead">Cada coisa que eu faço mora num lugar. Escolha pelo que você quer.</p>
+      </div>
+      <ul class="routes">
+        <li class="route"><a href="https://doug.ia.br">
+          <span class="want" data-i18n="r1_want">Quero aprender IA na prática</span>
+          <span class="where" data-i18n-html="r1_where"><b>doug.ia.br</b>: trilhas, handbooks, o Lab e o Bit a Bit</span>
+        </a></li>
+        <li class="route"><a href="https://dsiqueira.com">
+          <span class="want" data-i18n="r2_want">Quero IA rodando na minha empresa</span>
+          <span class="where" data-i18n-html="r2_where"><b>dsiqueira.com</b>: diagnóstico, automação, workshops e advisory</span>
+        </a></li>
+        <li class="route"><a href="https://doug.ia.br/dougdrops">
+          <span class="want" data-i18n="r3_want">Quero receber o que eu testo, toda semana</span>
+          <span class="where" data-i18n-html="r3_where"><b>Doug Drops</b>: a newsletter</span>
+        </a></li>
+        <li class="route"><a href="https://agentchaos.org">
+          <span class="want" data-i18n="r4_want">Quero pensar governança de agentes</span>
+          <span class="where" data-i18n-html="r4_where"><b>agentchaos.org</b>: ensaios e perguntas para conselhos</span>
+        </a></li>
+      </ul>
+    </section>
+
+    <section class="path" aria-labelledby="h-path">
+      <div class="section-head solo">
+        <h2 id="h-path" data-i18n="path_title">De onde eu venho</h2>
+      </div>
+      <p data-i18n="path_1">Antes do Lab, construí produto no Mercado Livre, no iFood, na Frete.com, na Floki e na Johnson &amp; Johnson.</p>
+      <p data-i18n="path_2">Dei aula na Coderhouse e na TheStarter, e sou mentor no ADPList. Gosto de ensinar do jeito que eu aprendo: construindo.</p>
+    </section>
+  </main>
+
+  <footer>
+    <ul class="social">
+      <li><a href="https://www.linkedin.com/in/douglas-siqueira/">LinkedIn</a></li>
+      <li><a href="https://www.youtube.com/@doug-ia">YouTube</a></li>
+      <li><a href="https://www.instagram.com/doug.ia.br">Instagram</a></li>
+      <li><a href="https://x.com/doug_ia">X</a></li>
+      <li><a href="https://github.com/doug-ia-br">GitHub</a></li>
+      <li><a href="https://dougdrops.substack.com/">Substack</a></li>
+    </ul>
+    <span>© <span id="year">2026</span> Douglas Siqueira</span>
+  </footer>
+</div>
+
+<script>
+const EN = {
+  motto_aria: "Building beats opining",
+  build: "Build",
+  opine: "Opine",
+  intro: "I'm an <strong>AI Product Leader</strong> with 15 years in digital product. I run an in-house AI lab at a company of 500+ people, and I believe good AI is the kind that runs in operations, not on a slide.",
+  figures: "The <a href=\"https://doug.ia.br/lab\">Lab</a> today: 8 AI and automation solutions live, 1,337 hours a month given back to teams, under R$&nbsp;100 a month in AI costs.",
+  build_title: "What I build",
+  build_lead: "Tools that started from a real problem, usually my own. Some are open source, others are apps you can use right now.",
+  k_skill: "Skill for coding agents",
+  d_vibedoc: "A short interview that writes and maintains an AGENTS.md, a DESIGN.md and a docs/ folder your AI reads before it builds. Works in Claude Code, Codex, Cursor and others.",
+  copy: "Copy", copied: "Copied",
+  l_code: "Code on GitHub", l_how: "How it works",
+  k_app: "Free app",
+  d_bitabit: "Learn AI in 3-minute lessons on your phone, with a weekly ranking and a certificate at the end. In Portuguese.",
+  l_open_app: "Open the app",
+  k_scraper: "Python desktop app and CLI",
+  d_scraper: "Collects Play Store reviews into CSV, JSON or Excel. Multi-app queue, date filter, rating summary, dark mode and six languages, on Windows, macOS and Linux.",
+  k_n8n: "n8n node",
+  d_cnpj: "Brazilian company data straight into your n8n workflows. In the Lab, it saves 70 hours of work a month.",
+  l_experiment: "See the experiment",
+  k_web: "Web page",
+  d_cyberkey: "Passwords, Wi-Fi (WEP) keys and 256-bit keys generated in your browser with cryptographic randomness. Nothing leaves your device.",
+  l_open: "Open",
+  k_essays: "Essays",
+  d_chaos: "Economic governance of AI agents for CEOs and boards: what happens when agents multiply with no owner, no cost visibility and no retirement plan.",
+  l_read: "Read on agentchaos.org",
+  next_title: "Where to go next",
+  next_lead: "Everything I do lives somewhere. Pick by what you want. Most of it is in Portuguese.",
+  r1_want: "I want to learn AI hands-on",
+  r1_where: "<b>doug.ia.br</b>: learning tracks, handbooks, the Lab and Bit a Bit",
+  r2_want: "I want AI running in my company",
+  r2_where: "<b>dsiqueira.com</b>: diagnostics, automation, workshops and advisory",
+  r3_want: "I want what I test, every week",
+  r3_where: "<b>Doug Drops</b>: the newsletter",
+  r4_want: "I want to think about agent governance",
+  r4_where: "<b>agentchaos.org</b>: essays and questions for boards",
+  path_title: "Where I come from",
+  path_1: "Before the Lab, I built product at Mercado Livre, iFood, Frete.com, Floki and Johnson & Johnson.",
+  path_2: "I've taught at Coderhouse and TheStarter, and I mentor on ADPList. I like teaching the way I learn: by building.",
+};
+
+// Portuguese is the markup; capture it once so we can switch back.
+const PT = {};
+const nodes = {
+  text: document.querySelectorAll('[data-i18n]'),
+  html: document.querySelectorAll('[data-i18n-html]'),
+  aria: document.querySelectorAll('[data-i18n-aria]'),
+};
+nodes.text.forEach(el => PT[el.dataset.i18n] = el.textContent);
+nodes.html.forEach(el => PT[el.dataset.i18nHtml] = el.innerHTML);
+nodes.aria.forEach(el => PT[el.dataset.i18nAria] = el.getAttribute('aria-label'));
+PT.copied = 'Copiado';
+
+let current = 'pt';
+function setLang(lang, remember) {
+  const t = lang === 'en' ? EN : PT;
+  current = lang;
+  document.documentElement.lang = lang === 'en' ? 'en' : 'pt-BR';
+  nodes.text.forEach(el => { if (t[el.dataset.i18n]) el.textContent = t[el.dataset.i18n]; });
+  nodes.html.forEach(el => { if (t[el.dataset.i18nHtml]) el.innerHTML = t[el.dataset.i18nHtml]; });
+  nodes.aria.forEach(el => { if (t[el.dataset.i18nAria]) el.setAttribute('aria-label', t[el.dataset.i18nAria]); });
+  document.querySelectorAll('[data-set-lang]').forEach(b =>
+    b.setAttribute('aria-pressed', String(b.dataset.setLang === lang)));
+  document.title = lang === 'en' ? 'Douglas Siqueira · Build > Opine' : 'Douglas Siqueira · Construir > Opinar';
+  if (remember) { try { localStorage.setItem('lang', lang); } catch (e) {} }
+}
+
+document.querySelectorAll('[data-set-lang]').forEach(b =>
+  b.addEventListener('click', () => setLang(b.dataset.setLang, true)));
+
+let saved = null;
+try { saved = localStorage.getItem('lang'); } catch (e) {}
+const fromUrl = new URLSearchParams(location.search).get('lang');
+const initial = fromUrl || saved || ((navigator.language || 'pt').toLowerCase().startsWith('pt') ? 'pt' : 'en');
+if (initial === 'en') setLang('en');
+
+document.querySelectorAll('[data-copy]').forEach(btn => btn.addEventListener('click', async () => {
+  const text = document.getElementById(btn.dataset.copy).textContent;
+  try { await navigator.clipboard.writeText(text); } catch (e) { return; }
+  const t = current === 'en' ? EN : PT;
+  btn.textContent = t.copied; btn.dataset.done = '';
+  setTimeout(() => { btn.textContent = t.copy; delete btn.dataset.done; }, 1600);
+}));
+
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
