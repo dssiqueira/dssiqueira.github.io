@@ -1,0 +1,40 @@
+name: screenshots
+
+# Refreshes assets/shots/ with screenshots of the linked sites.
+on:
+  push:
+    branches: [master]
+    paths: ["scripts/screenshots.mjs", ".github/workflows/screenshots.yml"]
+  schedule:
+    - cron: "17 9 * * 1"   # every Monday, 06:17 in São Paulo
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: screenshots
+  cancel-in-progress: true
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-save playwright@1
+      - run: npx playwright install --with-deps chromium
+      - run: node scripts/screenshots.mjs
+      - name: Commit changed screenshots
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/shots
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "chore: refresh site screenshots"
+            git push
+          fi
